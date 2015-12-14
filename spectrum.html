@@ -1,0 +1,36 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Spectrum Analyzer</title>
+</head>
+<body>
+ 
+  <div class="container">
+    <div class="row">
+      <h1>Spectral Monitor</h1>
+      <p>Add in some configurable things here?</p>
+    </div>
+    
+    
+      {{ > spectrumContainer }}
+    
+
+  </div><!-- /.container -->
+</body>
+
+
+<template name="spectrumContainer">
+{{#each spectrumRows 2}} <!-- this should take row number as argument; match col-lg-xx span below -->
+  {{> spectrumRow}}
+{{/each}}
+</template>
+
+<template name="spectrumRow">
+  <div class="row">
+    {{#each spectrumRow}}
+      <div class="col-lg-6" style="padding-right: 50px;">{{> rfBand}}</div>
+    {{/each}}
+  </div>
+</template>
