@@ -2,12 +2,12 @@
 
 /*body { padding-top: 50px; }*/
 
-/* For hover close button 
+/* For hover close button
 
-.row { 
-  position: relative; 
+.row {
+  position: relative;
 }
-.hover-btn { 
+.hover-btn {
   position: absolute;
   right: 15px;
   display: none;
@@ -16,3 +16,12 @@
 .row:hover .hover-btn {
   display: block;
 }*/
+
+/* gets rid of ugly blue outline */
+.btn:focus,.btn:active {
+   outline: none !important;
+}
+
+.close:focus,.close:active {
+   outline: none !important;
+}

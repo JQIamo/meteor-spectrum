@@ -1,19 +1,35 @@
 <template name="rfBand">
-<div id='{{_id}}' class="row"> 
-  <h2 class="text-center">
-    <span id='{{_id}}_name' class="editable" data-type="text" data-display="false" data-placeholder="Enter text" data-emptytext="Click to enter text" data-rows="1">{{name}}</span>
-    <span class="pull-right">
-    <button type="button" class="close" data-dismiss="alert">
-      <span aria-hidden="true">x</span>
-      <span class="sr-only">Close</span>
+  {{#if addNew}}
+
+  <div id='{{_id}}' class="row">
+    <h2>&nbsp;</h2>
+  </div>
+
+  <div class="row">
+    <button type="button" class="btn btn-default newSpectrum" aria-label="Add new RF Scan" style="height:300px; width:100%;">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true" style="font-size:4em;"></span>
     </button>
+  </div>
+
+
+  {{else}}
+
+<div id='{{_id}}' class="row">
+  <h2 class="text-center">
+    <span id='{{_id}}_name' class="editable" data-dest="name" data-type="text" data-display="false" data-placeholder="Enter name" data-emptytext="Click to enter text" data-rows="1">{{name}}</span>
+    <span class="pull-right">
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">x</span>
+        <span class="sr-only">Close</span>
+      </button>
     </span>
   </h2>
-  
 </div>
+
 <div class="row">
   <div id='{{ _id}}_plot' style="height:300px; width: 100%"></div>
 </div>
+
 <div class="row">
   <table class="table table-condensed">
     <thead>
@@ -24,19 +40,17 @@
     <tbody>
     <tr>
       <td>
-      <span id='{{_id}}_lf' class="editable" data-type="text" data-display="false" data-placeholder="Enter lower frequency">{{lf}}</span> 
-      / 
-      <span id='{{_id}}_hf' class="editable" data-type="text" data-display="false" data-placeholder="Enter higher frequency">{{hf}}</span>
+      <span id='{{_id}}_lf' class="editable" data-dest="lf" data-type="text" data-display="false" data-placeholder="Enter lower frequency">{{lf}}</span>
+      /
+      <span id='{{_id}}_hf' class="editable" data-dest="hf" data-type="text" data-display="false" data-placeholder="Enter higher frequency">{{hf}}</span>
       </td>
       <td>
-      <span id='{{_id}}_lpow' class="editable" data-type="text" data-display="false" data-placeholder="Enter lower power">{{lpow}}</span> / <span id='{{_id}}_hpow' class="editable" data-type="text" data-display="false" data-placeholder="Enter higher power">{{hpow}}</span></td>
-      <td><span id='{{_id}}_bw' class="editable" data-type="text" data-display="false" data-placeholder="Enter lower frequency">{{lf}}</span></td>
-      <td><span id='{{_id}}_ch' class="editable" data-type="text" data-display="false" data-placeholder="Enter lower frequency">1</span></td>
-     
+      <span id='{{_id}}_lpow' class="editable" data-dest="lpow" data-type="text" data-display="false" data-placeholder="Enter lower power">{{lpow}}</span> / <span id='{{_id}}_hpow' class="editable" data-dest="hpow" data-type="text" data-display="false" data-placeholder="Enter higher power">{{hpow}}</span></td>
+      <td><span id='{{_id}}_bw' class="editable" data-dest="bw" data-type="text" data-display="false" data-placeholder="Enter RBW">{{lf}}</span></td>
+      <td><span id='{{_id}}_ch' class="editable" data-dest="ch" data-type="text" data-display="false" data-placeholder="Enter channel">1</span></td>
     </tr>
     </tbody>
   </table>
 </div>
+{{/if}}
 </template>
-
-
