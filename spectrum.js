@@ -1,17 +1,18 @@
 Bands = new Mongo.Collection("bands"); // monitored rf bands
 
 if (Meteor.isClient) {
-
-
+  
   $.fn.editable.defaults.mode = 'inline';
 
+  // helper function to split Bands -> nx2 array.
   Template.spectrumContainer.helpers({
     spectrumRows: function(rowLength) {
       var bands = Bands.find({}).fetch();
+
+      // this is looked for to see whether a "add new" pane should be added.
       bands.push({addNew: true});
       var rows = [];
-    //  Session.set('modRows', bands.length % rowLength);
-      //console.log(Session.get('modRows'));
+
       while (bands.length > rowLength) {
         rows.push({ spectrumRow: bands.slice(0, rowLength)});
         bands = bands.slice(rowLength);
@@ -19,19 +20,10 @@ if (Meteor.isClient) {
 
       rows.push({ spectrumRow: bands });
       return rows;
-    },
-
+    }
   });
 
-/*  Template.spectrumRow.helpers({
-    modRows: function(){
-      return Session.get('modRows') == 0 ? true : false;
-    }
-  })*/
-
-
-
-
+  // bind events for adding/removing panels
   Template.rfBand.events({
     'click .close': function(){
       console.log("closing..." + this._id);
@@ -43,16 +35,15 @@ if (Meteor.isClient) {
     }
   });
 
+  // when plot panel rendered, let flot do it's stuff!
   Template.rfBand.rendered = function(){
-
     var band = this.data;
-    //this.plot =
     var plot = $.plot("#" + band._id + "_plot", [[[1,2]]], {
                         yaxis: {min: band.lpow, max: band.hpow},
                         xaxis: {min: band.lf, max: band.hf}
                     });
 
-
+    // bind plot update for changes in scale/range
     Tracker.autorun(function(){
       var thisBand = Bands.findOne(band._id);
 
@@ -68,6 +59,7 @@ if (Meteor.isClient) {
 
     })
 
+    // bind edit-in-place
     $('.editable').editable({
       mode: 'popup',
       placement: 'right',
@@ -85,15 +77,8 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // populate with junk data;
 
-  /*  if (Bands.find({}).count() < 5) {
-        Bands.insert({name: "RF Band 1", lf: 1200, hf: 1210, lpow: -120, hpow: -50, ch: 0, data: [[1,2]]});
-        Bands.insert({name: "RF Band 1", lf: 1200, hf: 1210, lpow: -120, hpow: -50, ch: 0, data: [[1,2]]});
-    }*/
-  });
-
+  // temporary fake data
   Meteor.setInterval(function(){
     Bands.find().fetch().forEach(function(e){
       var newData = [];
@@ -107,4 +92,5 @@ if (Meteor.isServer) {
       Bands.update(e._id, {$set: {data: newData}});
     });
   }, 1000);
+
 }
