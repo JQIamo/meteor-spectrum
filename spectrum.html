@@ -12,9 +12,12 @@
       <h1>Spectral Monitor</h1>
     </div>
 
-
+    <div class="spectrum-plot">
       {{ > spectrumContainer }}
-
+    </div>
+    <div class="row">
+      {{> configOptions}}
+    </div>
 
   </div><!-- /.container -->
 </body>
@@ -32,4 +35,29 @@
       <div class="col-lg-6" style="padding-right: 50px;">{{> rfBand}}</div>
     {{/each}}
   </div>
+</template>
+
+<template name="configOptions">
+  {{#with config}}
+    <h3>Config Options</h3>
+    <div class="col-lg-8 spectrum-config">
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+          <th>Port</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <span id='{{_id}}_port' class="editable" data-dest="port" data-type="text" data-display="false" data-placeholder="Enter COM port">{{port}}</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <h4>Status</h4>
+      <hr />
+      <p>{{err}}</p>
+    </div>
+    {{/with}}
 </template>
